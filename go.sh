@@ -1,28 +1,23 @@
 #!/bin/bash
+set -eu
 
 methods="
-netrik
 retawq
 elinks
-links
 links2
 w3m
 lynx
 "
 
-function netrik() {
-  $FUNCNAME $1
-}
-function retawq() {
-  $FUNCNAME $1
-}
+urls="
+http://www.google.com
+http://news.ycombinator.com
+"
+
 function retawq() {
   $FUNCNAME $1
 }
 function elinks() {
-  $FUNCNAME $1
-}
-function links() {
   $FUNCNAME $1
 }
 function links2() {
@@ -31,26 +26,30 @@ function links2() {
 function w3m() {
   $FUNCNAME $1
 }
-function links() {
+function lynx() {
   $FUNCNAME $1
 }
 
 function take_screenshot {
-  local url=$1
-  local method=$2
+  local method=$1
+  local url=$2
   echo "Taking a screenshot of $url and rendered with $method"
-  xterm -maximized -e "$method $url" &
-  sleep .5s
+  set -vx
+  xterm -geometry 100x24 -e "$method $url" &
+  read TEST
+  #sleep 30s
   window_id=$(xdotool search --class xterm | head)
   import -window "$window_id" /tmp/screenshot.png
-  filename=$(echo $url | cut -f 2 -d '/')
-  convert /tmp/screenshot.png -trim -background Grey -gravity Center -pointsize 48 label:"Method: $method" +swap -append $filename.png
+  filename="$(echo $url | cut -f 3 -d '/') $method.png"
+  convert /tmp/screenshot.png -trim -background Grey -gravity Center -pointsize 48 label:"Method: $method" +swap -append "outputs/$filename"
   killall xterm
 }
 
 function save_original {
   local url=$1
-  #convert $input -trim -resize 600% -background Grey -gravity Center -pointsize 48 label:"Original" +swap -append $output
+  filename="$(echo $url | cut -f 3 -d '/') $original.png"
+  phantomjs screenshot.js "$url" /tmp/original.png 640 480
+  convert /tmp/original -trim  -background Grey -gravity Center -pointsize 48 label:"Original" +swap -append outputs/$filename
 }
 
 function make_screenshots {

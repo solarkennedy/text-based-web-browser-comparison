@@ -3,17 +3,34 @@
 
 ## List of Browsers Compared
 
-* [Netrik](http://netrik.sourceforge.net/)
 * [retawq](http://retawq.sourceforge.net/)
 * [elinks](http://elinks.or.cz/)
-* [links](http://www.jikos.cz/~mikulas/links/)
 * [links2](http://links.twibright.com/)
 * [w3m](http://w3m.sourceforge.net/)
 * [lynx](http://lynx.browser.org/)
 
-### Build The Docker Image + Output The ASCII Files
+## Browsers not compared
 
-    make build
+* [Netrik](http://netrik.sourceforge.net/) (no https support)
+
+## Config Options Used
+
+* retawq
+    * Enable SSL support
+* lynx
+    * Always allow cookies
+* elinks
+    * underline
+    * linux frames
+    * 256 color
+    * utf8
+* links2
+    * Linux frames
+    * Color
+* w3m
+    * Render frames
+* lynx
+    * underline links
 
 ### Launch xterms and take Screenshots
 
