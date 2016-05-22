@@ -39,7 +39,6 @@ function take_screenshot {
   filename="outputs/$(echo $url | cut -f 3 -d '/') $method.png"
   if [[ -f "$filename" ]]; then return 0; fi
   echo "Taking a screenshot of $url and rendered with $method"
-  set -vx
   xterm -geometry 140x40 -e "$method $url" &
   echo "Press enter when ready to take a screenshot"
   read GO
@@ -50,7 +49,6 @@ function take_screenshot {
 }
 
 function save_original {
-	set -vx
   local url=$1
   filename="outputs/$(echo $url | cut -f 3 -d '/') original.png"
   if [[ -f "$filename" ]]; then return 0; fi
@@ -72,4 +70,24 @@ function make_screenshots {
   done
 }
 
+function print_img_markdown {
+  local method=$1
+  local url=$2
+  local filename="$(echo $url | cut -f 3 -d '/') $method.png"
+  local local_file="/uploads/$filename"
+  echo "![$url rendered using $method]($filename '$url rendered using $method')"
+}
+
+function make_report {
+  for url in $urls; do
+    echo ""
+    echo "## Site: [$url]($url)"
+    for method in $methods; do
+      print_img_markdown $method $url
+    done
+    print_img_markdown 'Original \(surf\)' $url
+  done
+}
+
 make_screenshots
+make_report

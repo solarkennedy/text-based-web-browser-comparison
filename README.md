@@ -1,5 +1,4 @@
-# ascii-art-converter-comparison
-
+# text-based-web-browser-comparison
 
 ## List of Browsers Compared
 
@@ -29,16 +28,10 @@
     * Color
 * w3m
     * Render frames
-* lynx
-    * underline links
 
 ### Launch xterms and take Screenshots
 
     make screenshots
-
-### Build A Markdown Report
-
-    make report
 
 ## Results
 
@@ -46,7 +39,6 @@ Final results are published on my [blog](http://xkyle.com/a-comparison-of-text-b
 
 ## Related Work 
 
-https://kmandla.wordpress.com/2011/01/13/a-comparison-of-text-based-browsers/
-
-[2005 Text Mode Browser Roundup](http://www.linuxjournal.com/article/8148)
-[http://elinks.cz/history.html](The history and evolution of the Links browsers)
+* [Kmandla comparison](https://kmandla.wordpress.com/2011/01/13/a-comparison-of-text-based-browsers/)
+* [2005 Text Mode Browser Roundup](http://www.linuxjournal.com/article/8148)
+* [http://elinks.cz/history.html](The history and evolution of the Links browsers)
