@@ -10,8 +10,11 @@ lynx
 "
 
 urls="
-http://www.google.com
+https://en.wikipedia.org/wiki/Rule_110
 http://news.ycombinator.com
+https://facebook.com
+https://twitter.com
+https://mail.google.com
 "
 
 function retawq() {
@@ -33,23 +36,31 @@ function lynx() {
 function take_screenshot {
   local method=$1
   local url=$2
+  filename="outputs/$(echo $url | cut -f 3 -d '/') $method.png"
+  if [[ -f "$filename" ]]; then return 0; fi
   echo "Taking a screenshot of $url and rendered with $method"
   set -vx
-  xterm -geometry 100x24 -e "$method $url" &
-  read TEST
-  #sleep 30s
-  window_id=$(xdotool search --class xterm | head)
+  xterm -geometry 140x40 -e "$method $url" &
+  echo "Press enter when ready to take a screenshot"
+  read GO
+  window_id=$(xdotool search --class xterm | head -n 1)
   import -window "$window_id" /tmp/screenshot.png
-  filename="$(echo $url | cut -f 3 -d '/') $method.png"
-  convert /tmp/screenshot.png -trim -background Grey -gravity Center -pointsize 48 label:"Method: $method" +swap -append "outputs/$filename"
+  convert /tmp/screenshot.png -trim -background Grey -gravity Center -pointsize 24 label:"URL: $url Method: $method" +swap -append "$filename"
   killall xterm
 }
 
 function save_original {
+	set -vx
   local url=$1
-  filename="$(echo $url | cut -f 3 -d '/') $original.png"
-  phantomjs screenshot.js "$url" /tmp/original.png 640 480
-  convert /tmp/original -trim  -background Grey -gravity Center -pointsize 48 label:"Original" +swap -append outputs/$filename
+  filename="outputs/$(echo $url | cut -f 3 -d '/') original.png"
+  if [[ -f "$filename" ]]; then return 0; fi
+  surf "$url" &
+  echo "Press enter when ready to take a screenshot"
+  read GO
+  window_id=$(xdotool search --class surf | tail -n 1)
+  import -window "$window_id" /tmp/screenshot.png
+  killall surf
+  convert /tmp/screenshot.png -trim  -background Grey -gravity Center -pointsize 24 label:"URL: $url Method: surf" +swap -append "$filename"
 }
 
 function make_screenshots {
