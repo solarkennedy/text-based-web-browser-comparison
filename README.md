@@ -1,5 +1,8 @@
 # text-based-web-browser-comparison
 
+This is the code that powers [this blog post](https://www.xkyle.com/A-Comparison-of-Text-Based-Web-Browsers/)
+comparing how different pages look under different text-based browsers.
+
 ## List of Browsers Compared
 
 * [retawq](http://retawq.sourceforge.net/)
@@ -41,4 +44,4 @@ Final results are published on my [blog](http://xkyle.com/a-comparison-of-text-b
 
 * [Kmandla comparison](https://kmandla.wordpress.com/2011/01/13/a-comparison-of-text-based-browsers/)
 * [2005 Text Mode Browser Roundup](http://www.linuxjournal.com/article/8148)
-* [http://elinks.cz/history.html](The history and evolution of the Links browsers)
+* [The history and evolution of the Links browsers](http://elinks.cz/history.html)
